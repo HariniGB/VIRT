@@ -77,7 +77,7 @@ func Login(w http.ResponseWriter, r *http.Request){
 }
 
 func indexPageHandler(response http.ResponseWriter, request *http.Request) {
-  Dashboard(response, request)
+  Login(response, request)
   // fmt.Fprintf(response, indexPage)
 }
 
@@ -93,7 +93,7 @@ func Dashboard(w http.ResponseWriter, r *http.Request){
 func internalPageHandler(response http.ResponseWriter, request *http.Request) {
   userName := getUserName(request)
   if userName != "" {
-    Login(response, request)
+    Dashboard(response, request)
   } else {
     http.Redirect(response, request, "/", 302)
   }
