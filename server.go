@@ -23,6 +23,8 @@ func main() {
   r.GET("/dashboard", uc.InternalPageHandler)
   r.POST("/login", uc.LoginHandler)
   r.POST("/logout", uc.LogoutHandler)
+  // To add all static contents like CSS, JS, IMAGES for the HTML page at any given route (/*filepath)
+  r.ServeFiles("/static/*filepath", http.Dir("static"))
   http.ListenAndServe("localhost:3000", r)
 }
 

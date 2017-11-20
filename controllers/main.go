@@ -40,7 +40,7 @@ func keystone_admin() {
       IdentityEndpoint: "http://localhost:5000/v3/",
       Username: "admin",
       Password: "admin_user_secret",
-      TenantID: "71cbf6c1db784ce09aa75e0edc8464e9",
+      // TenantID: "71cbf6c1db784ce09aa75e0edc8464e9",
       TenantName: "admin",
       DomainName: "Default",
   }
