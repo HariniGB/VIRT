@@ -18,7 +18,8 @@ func main() {
   uc := controllers.NewUserController(getSession())
 
   r.GET("/", uc.IndexPageHandler)
-  r.GET("/dashboard", uc.InternalPageHandler)
+  r.GET("/dashboard", uc.DashboardPageHandler)
+  r.GET("/api/v1/openstack/dashboard", uc.OpenStackPageHandler)
   r.POST("/login", uc.LoginHandler)
   r.POST("/logout", uc.LogoutHandler)
   // To add all static contents like CSS, JS, IMAGES for the HTML page at any given route (/*filepath)
