@@ -1,27 +1,36 @@
 package models
 
-// import "gopkg.in/mgo.v2/bson"
-// import "github.com/etcinit/central/database/models"
-
-// type (
-//   // User represents the structure of our resource
-//   User struct {
-//     Id        bson.ObjectId `json:"id" bson:"_id"`
-//     Name      string        `json:"name" bson:"name"`
-//     Email     string        `json:"email" bson:"email"`
-//     Password  string        `json:"password" bson:"password"`
-//     CreatedAt time.Time `gorm:"column:createdAt"`
-//     UpdatedAt time.Time `gorm:"column:updatedAt"`
-//   }
-// )
-
-// type  (
-//   Instance struct {
-//   Id          bson.ObjectId `json:"id"     bson:"_id"`
-//   name        string        `json:"name"   bson:"name"`
-//   flavor      string        `json:"flavor" bson:"flavor"`
-//   memory      string        `json:"memory" bson:"memory"`
-//   CreatedAt   time.Time     `gorm:"column:createdAt" json:"created_at"`
-//   UpdatedAt   time.Time     `gorm:"column:updatedAt" json:"updated_at"`
-//   }
-// )
+type (
+	// FlavorsData struct represents the values of List Flavor API
+	FlavorsData struct {
+		Name  string
+		ID    string
+		RAM   int
+		VCPUs int
+		Disk  int
+		RXTX  float64
+	}
+	// ImagesData struct represents the values of List Images API
+	ImagesData struct {
+		Name      string
+		ID        string
+		MinDisk   int
+		Status    string
+		Progress  int
+		MinRAM    int
+		Metadata  map[string]string
+	}
+	// InstancesData struct represents the values of List Instances API
+	InstancesData struct {
+		Name          string
+		ID            string
+		Owner         string
+		Image         map[string]interface{}
+		Flavor        map[string]interface{}
+		Host          string
+		Status        string
+		SecurityGroup []map[string]interface{}
+		CreatedAt     string
+		UpdatedAt     string
+	}
+)

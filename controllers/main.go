@@ -4,7 +4,7 @@ import (
   "net/http"
   "html/template"
   "fmt"
-  "github.com/julienschmidt/httprouter"
+  "github.com/HariniGB/openstack-api/models"
 
   // To access the golang SDK for keystone authentication
   "github.com/rackspace/gophercloud"
@@ -13,13 +13,11 @@ import (
   "github.com/rackspace/gophercloud/openstack/compute/v2/flavors"
   "github.com/rackspace/gophercloud/openstack/compute/v2/images"
   "github.com/rackspace/gophercloud/openstack/compute/v2/servers"
-  "strconv"
 
   // To maintain cookie for Login and Logout
   "github.com/gorilla/securecookie"
-
-  // To run a mongodb session
-  "gopkg.in/mgo.v2"
+  //To get JSON in Rest API
+  "encoding/json"
 )
 
 // cookie handling
@@ -27,50 +25,10 @@ var cookieHandler = securecookie.New(
   securecookie.GenerateRandomKey(64),
   securecookie.GenerateRandomKey(32))
 
-type (
-  // UserController represents the controller for operating on the User resource
-  UserController struct {
-    session *mgo.Session
-  }
-  FlavorsData struct {
-    Name  string
-    ID    string
-    RAM   int
-    VCPUs int
-    Disk  int
-    RXTX  float64
-  }
-  ImagesData struct {
-    Name      string
-    ID        string
-    MinDisk   string
-    Status    string
-    Progress  string
-    MinRAM    string
-    Metadata  map[string]string
-  }
-  InstancesData struct {
-    Name          string
-    ID            string
-    Owner         string
-    Image         map[string]interface{}
-    Flavor        map[string]interface{}
-    Host          string
-    Status        string
-    SecurityGroup []map[string]interface{}
-    CreatedAt     string
-    UpdatedAt     string
-  }
-)
 // variables initialization
-var flavorDataList []FlavorsData
-var imageDataList []ImagesData
-var instanceDataList []InstancesData
-
-// NewUserController provides a reference to a UserController with provided mongo session
-func NewUserController(s *mgo.Session) *UserController {
-  return &UserController{s}
-}
+var flavorDataList []models.FlavorsData
+var imageDataList []models.ImagesData
+var instanceDataList []models.InstancesData
 
 // Login to openstack horizon and get authorized token for admin user from keystone
 func keystoneAdmin() {
@@ -153,7 +111,7 @@ func computeList()  {
     for _, f := range flavorList {
       // "f" will be a flavors.Flavor
       flavorDataList = append(flavorDataList,
-        FlavorsData {
+        models.FlavorsData {
           f.Name,
           f.ID,
           f.RAM,
@@ -177,13 +135,13 @@ func computeList()  {
     for _, i := range imageList {
       // "i" will be a images.Image
       imageDataList = append(imageDataList,
-        ImagesData {
+        models.ImagesData {
           i.Name,
-          string(i.ID),
-          strconv.Itoa(i.MinDisk),
+          i.ID,
+          i.MinDisk,
           i.Status,
-          strconv.Itoa(i.Progress),
-          strconv.Itoa(i.MinRAM),
+          i.Progress,
+          i.MinRAM,
           i.Metadata,
         },)
     }
@@ -202,7 +160,7 @@ func computeList()  {
     serverList, err := servers.ExtractServers(page)
     for _, s := range serverList {
       instanceDataList = append(instanceDataList,
-        InstancesData{
+        models.InstancesData{
           s.Name,
           s.ID,
           s.UserID,
@@ -221,7 +179,7 @@ func computeList()  {
 }
 
 // login handler
-func  (uc UserController) LoginHandler(response http.ResponseWriter, request *http.Request,  p httprouter.Params) {
+func LoginHandler(response http.ResponseWriter, request *http.Request) {
   name := request.FormValue("name")
   pass := request.FormValue("password")
   redirectTarget := "/"
@@ -236,7 +194,7 @@ func  (uc UserController) LoginHandler(response http.ResponseWriter, request *ht
 }
 
 // logout handler
-func  (uc UserController) LogoutHandler(response http.ResponseWriter, request *http.Request,  p httprouter.Params) {
+func LogoutHandler(response http.ResponseWriter, request *http.Request) {
   clearSession(response)
   http.Redirect(response, request, "/", 302)
 }
@@ -250,7 +208,7 @@ func Login(w http.ResponseWriter, r *http.Request){
    tmpl.Execute(w, "Login page")
 }
 
-func  (uc UserController) IndexPageHandler(response http.ResponseWriter, request *http.Request,  p httprouter.Params) {
+func IndexPageHandler(response http.ResponseWriter, request *http.Request) {
   Login(response, request)
   // fmt.Fprintf(response, indexPage)
 }
@@ -264,35 +222,48 @@ func Dashboard(w http.ResponseWriter, r *http.Request){
    tmpl.Execute(w, "Dashboard page")
 }
 
-func  (uc UserController) DashboardPageHandler(response http.ResponseWriter, request *http.Request,  p httprouter.Params) {
+func DashboardPageHandler(response http.ResponseWriter, request *http.Request) {
     Dashboard(response, request)
 }
 
-// Openstack compute page with lists of flavors, images and instances
-func OpenstackDashboard(w http.ResponseWriter, r *http.Request) {
-  tmpl, err := template.ParseFiles("templates/openstack_dashboard.html")
-  if err != nil {
-    panic(err)
-  }
+//// Openstack compute page with lists of flavors, images and instances
+//func OpenstackDashboard(w http.ResponseWriter, r *http.Request) {
+//  tmpl, err := template.ParseFiles("templates/openstack_dashboard.html")
+//  if err != nil {
+//    panic(err)
+//  }
+//  computeList()
+//  inputData1 := struct {
+//    Flavors   []models.FlavorsData
+//    Images    []models.ImagesData
+//    Instances []models.InstancesData
+//  }{
+//    flavorDataList,
+//    imageDataList,
+//    instanceDataList,
+//  }
+//  err = tmpl.Execute(w, inputData1)
+//  if err != nil {
+//    panic(err)
+//  }
+//}
+
+// openstack API page
+func OpenStackPageHandler(response http.ResponseWriter, request *http.Request) {
   computeList()
   inputData := struct {
-    Flavors   []FlavorsData
-    Images    []ImagesData
-    Instances []InstancesData
+    Flavors   []models.FlavorsData
+    Images    []models.ImagesData
+    Instances []models.InstancesData
   }{
     flavorDataList,
     imageDataList,
     instanceDataList,
   }
-  err = tmpl.Execute(w, inputData)
-  if err != nil {
-    panic(err)
-  }
-}
-
-// openstack API page
-func  (uc UserController) OpenStackPageHandler(response http.ResponseWriter, request *http.Request,  p httprouter.Params) {
-  OpenstackDashboard(response, request)
+  input, _ := json.Marshal(inputData)
+  response.Header().Set("Content-Type", "application/json")
+  response.WriteHeader(201)
+  fmt.Fprintf(response, "%s", input)
 }
 
 
