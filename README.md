@@ -4,7 +4,7 @@ Openstack API based Login & Logout using Keystone
 --------
 
 #### Index page with Login form
-localhost:8000   
+localhost:3000   
 
 #### Dashboard page with username
-localhost:8000/dashboard
+localhost:3000/dashboard
