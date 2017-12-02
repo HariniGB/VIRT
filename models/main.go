@@ -12,13 +12,13 @@ type (
 	}
 	// ImagesData struct represents the values of List Images API
 	ImagesData struct {
-		Name      string
-		ID        string
-		MinDisk   int
-		Status    string
-		Progress  int
-		MinRAM    int
-		Metadata  map[string]string
+		Name     string
+		ID       string
+		MinDisk  int
+		Status   string
+		Progress int
+		MinRAM   int
+		Metadata map[string]string
 	}
 	// InstancesData struct represents the values of List Instances API
 	InstancesData struct {
