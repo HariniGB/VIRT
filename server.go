@@ -19,6 +19,6 @@ func main() {
 	http.HandleFunc("/login", controllers.LoginHandler)
 	http.HandleFunc("/logout", controllers.LogoutHandler)
 	// To add all static contents like CSS, JS, IMAGES for the HTML page at any given route (/*filepath)
-	http.Handle("/static/*filepath", http.StripPrefix("/static", http.FileServer(http.Dir("static"))))
+	http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("static"))))
 	http.ListenAndServe("localhost:3000", nil)
 }

@@ -78,6 +78,11 @@ func clearSession(response http.ResponseWriter) {
 
 //openstack compute lists of flavors,images and instances
 func computeList() {
+  // Empty the struct array to avoid repetition
+  flavorDataList = nil
+	imageDataList = nil
+	instanceDataList = nil
+
 	//Pass in the values yourself
 	opts := gophercloud.AuthOptions{
 		IdentityEndpoint: "http://localhost:5000/v3/",
@@ -226,28 +231,6 @@ func Dashboard(w http.ResponseWriter, r *http.Request) {
 func DashboardPageHandler(response http.ResponseWriter, request *http.Request) {
 	Dashboard(response, request)
 }
-
-//// Openstack compute page with lists of flavors, images and instances
-//func OpenstackDashboard(w http.ResponseWriter, r *http.Request) {
-//  tmpl, err := template.ParseFiles("templates/openstack_dashboard.html")
-//  if err != nil {
-//    panic(err)
-//  }
-//  computeList()
-//  inputData1 := struct {
-//    Flavors   []models.FlavorsData
-//    Images    []models.ImagesData
-//    Instances []models.InstancesData
-//  }{
-//    flavorDataList,
-//    imageDataList,
-//    instanceDataList,
-//  }
-//  err = tmpl.Execute(w, inputData1)
-//  if err != nil {
-//    panic(err)
-//  }
-//}
 
 // openstack API page
 func InstancesHandler(response http.ResponseWriter, request *http.Request) {
