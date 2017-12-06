@@ -13,6 +13,8 @@
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
         <!-- Custom Fonts -->
         <link rel="stylesheet" type="text/css" href="static/css/font-awesome.min.css" />
+        <!-- Pie Chart -->
+        <link rel="stylesheet" type="text/css" href="static/css/pie-chart.css" />
     </head>
     <body>
         <div id="wrapper">
@@ -56,13 +58,13 @@
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="/dashboard"><i class="fa fa-home fa-fw"></i>Home</a>
+                                <a href="/dashboard"><i class="fa fa-home fa-fw"></i> Home</a>
                             </li>
                             <li>
                                 <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="/details"><i class="fa fa-table fa-fw"></i>Flavors and Applications</a>
+                                <a href="/details"><i class="fa fa-table fa-fw"></i> Flavors and Applications</a>
                             </li>
                             <li>
                                 <a href="/new/instance"><i class="fa fa-edit fa-fw"></i> Launch Instance</a>
@@ -165,6 +167,68 @@
                         </div>
                     </div>
                 </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Pie Chart
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                                <div class="grid__item one-quarter below-desk-one-whole"><div class="chart-wrapper text--center"><h3>Instances </h3><div class="pie">Used 3 of 10</div></div></div>
+
+                                <div class="grid__item one-quarter below-desk-one-whole"><div class="chart-wrapper text--center"><h3>RAM</h3><div class="pie">Used 1GB of 50GB</div></div></div>
+
+                                <div class="grid__item one-quarter below-desk-one-whole"><div class="chart-wrapper text--center"><h3>VCPUs</h3><div class="pie">Used 10 of 15</div></div></div>
+
+                                <div class="grid__item one-quarter below-desk-one-whole"><div class="chart-wrapper text--center"><h3>Floating IPs</h3><div class="pie">Used 4 of 50</div></div></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                <!-- /.panel --><br />
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Instances
+                        <div class="pull-centre">
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-16">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Project</th>
+                                                <th>Name</th>
+                                                <th>Application URL</th>
+                                                <th>IP Address</th>
+                                                <th>Flavor</th>
+                                                <th>Status</th>
+                                                <th>Task</th>
+                                                <th>PowerState</th>
+                                                <th>Created Time</th>
+                                                <th>Updated Time</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="instancesList">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.col-lg-4 (nested) -->
+                            <div class="col-lg-8">
+                                <div id="morris-bar-chart"></div>
+                            </div>
+                            <!-- /.col-lg-8 (nested) -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-lg-18">
@@ -197,54 +261,6 @@
                             </div>
                             <!-- /.panel-body -->
                         </div>
-                        <!-- /.panel -->
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-bar-chart-o fa-fw"></i> Instances
-                                <div class="pull-centre">
-                                </div>
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-lg-16">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Project</th>
-                                                        <th>Name</th>
-                                                        <th>Application URL</th>
-                                                        <th>IP Address</th>
-                                                        <th>Flavor</th>
-                                                        <th>Status</th>
-                                                        <th>Task</th>
-                                                        <th>PowerState</th>
-                                                        <th>Created Time</th>
-                                                        <th>Updated Time</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="instancesList">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!-- /.table-responsive -->
-                                    </div>
-                                    <!-- /.col-lg-4 (nested) -->
-                                    <div class="col-lg-8">
-                                        <div id="morris-bar-chart"></div>
-                                    </div>
-                                    <!-- /.col-lg-8 (nested) -->
-                                </div>
-                                <!-- /.row -->
-                            </div>
-                            <!-- /.panel-body -->
-                        </div>
-                        <!-- /.panel -->
-                        </div>
-                        <!-- /.panel -->
-                    </div>
                     <!-- /.col-lg-8 -->
                     </div>
                     <!-- /.col-lg-4 -->
@@ -254,7 +270,6 @@
             <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
-
         <!-- jQuery -->
         <script src="static/js/jquery.min.js"></script>
         <!-- Bootstrap Core JavaScript -->
@@ -267,6 +282,7 @@
         <script src="static/js/morris-data.js"></script>
         <script src="static/js/raphael.min.js"></script>
         <script src="static/js/morris.min.js"></script>
+        <script src="static/js/pie-chart.js"></script>
         <script>
             $(document).ready(function(){
                 $.getJSON('http://localhost:3000/api/v1/openstack/instances', function(response){
@@ -283,6 +299,7 @@
                         instance.append("<td>" + "Power state" + "</td>");
                         instance.append("<td>" + response[index].CreatedAt + "</td>");
                         instance.append("<td>" + response[index].UpdatedAt + "</td></tr>");
+                        instance.append('<td class="button"><div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Launch<span class="caret"></span></button><ul class="dropdown-menu"> <li><a href="#"><i class="fa fa-plug"></i>  Create Volume</a></li><li><a href="#"><i class="fa fa-eraser"></i>  Edit Image</a></li><li><a href="#"><i class="fa fa-upload"></i>  Update Metadata</a></li><li class="divider"></li><li><a href="#"><i class="fa fa-trash"></i>  Delete</a></li></ul></div></td>');
                         $('#instancesList').append(instance);
                     }
                 })

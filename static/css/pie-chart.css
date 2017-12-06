@@ -1,0 +1,67 @@
+body {
+  font-family: arial, helvetica;
+  background: #ccc;
+}
+
+@keyframes fillup {
+  to { stroke-dasharray: 25 100; }
+}
+
+circle {
+  fill: #ebebeb;
+  stroke: #2daa7a;
+  stroke-width: 32;
+  stroke-dasharray: 0 100;
+  animation: fillup 600ms ease-out forwards 1;
+}
+
+.pie {
+  position: relative;
+}
+
+.cowboy {
+  width: 120px; height: 120px;
+  transform: rotate(-90deg);
+  background: transparent;
+  border-radius: 50%;
+}
+.percentio {
+  font-size: 1.3em;
+  font-family: arial, helvetica;
+  padding: 18px 0 0 0;
+  border-radius: 100%;
+  background: white;
+  color: black;
+  width: 60px; height: 60px;
+  display: inline-block;
+  position: absolute;
+  bottom: 105px;
+  margin-left: -30px
+
+}
+
+.grid {
+    margin-left: -29px;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.grid__item {
+    display: inline-block;
+    width: 80%;
+    vertical-align: top;
+}
+
+.one-quarter, .two-eighths, .three-twelfths {
+    width: 23%;
+}
+
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.text--center {
+    text-align: center !important;
+}
