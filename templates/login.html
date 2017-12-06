@@ -1,43 +1,59 @@
 <!DOCTYPE html>
-  <html lang="en">
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Login OpenStack</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="static/css/stylepage.css" />
-        <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+        <title>Openstack Login</title>
+        <!-- Custom CSS -->
+        <link type="text/css" href="static/css/sb-admin-2.css" />
+        <!-- MetisMenu CSS -->
+        <link type="text/css" href="static/css/metisMenu.min.css" />
+         <!-- Bootstrap Core CSS -->
+        <link type="text/css" href="static/css/bootstrap.min.css" />
+        <!-- Custom Fonts -->
+        <link type="text/css" href="static/css/font-awesome.min.css" />
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">OpenStack Dashboard</a>
-        </div>
-        </nav>
-
         <div class="container">
-           <hr class="colorgraph"><br>
-              <form  class="form-signin" method="post" action="/login">
-                <h3 class="form-signin-heading"> Login to dashboard</h3>
-
-                <!-- Email field -->
-                <div class="input-group">
-                  <input id="name" type="text" class="form-control" name="name" placeholder="User Name">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                </div><br/>
-
-                <!-- Password field -->
-                <div class="input-group">
-                  <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                </div><br/>
-
-                <!-- Sign In button -->
-                <button type="submit" class="btn btn-primary navbar-inverse center-block">Login</button>
-              </form>
-          <hr class="colorgraph"><br>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Please Sign In</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" method="post" action="/login">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input id="name" type="text" class="form-control" name="name" placeholder="User Name" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        </label>
+                                    </div>
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- jQuery -->
+        <script src="static/js/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="static/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="static/js/metisMenu.min.js"></script>
+        <!--  Custom Theme JavaScript -->
+        <script src="static/js/sb-admin-2.js"></script>
+
     </body>
 </html>
