@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Dashboard</title>
-         <!-- Custom CSS -->
-        <link type="text/css" href="static/css/sb-admin-2.css" />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="static/css/sb-admin-2.css" />
         <!-- MetisMenu CSS -->
-        <link type="text/css" href="static/css/metisMenu.min.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/metisMenu.min.css" />
          <!-- Bootstrap Core CSS -->
-        <link type="text/css" href="static/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
         <!-- Custom Fonts -->
-        <link type="text/css" href="static/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="static/css/font-awesome.min.css" />
     </head>
     <body>
         <div id="wrapper">
@@ -55,17 +55,18 @@
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
-
                             <li>
-                                <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                <a href="/dashboard"><i class="fa fa-home fa-fw"></i>Home</a>
                             </li>
                             <li>
-                                <a href="tables.html"><i class="fa fa-table fa-fw"></i> Flavors and Images</a>
+                                <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                             </li>
                             <li>
-                                <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Launch Instance</a>
+                                <a href="/details"><i class="fa fa-table fa-fw"></i>Flavors and Applications</a>
                             </li>
-
+                            <li>
+                                <a href="/new/instance"><i class="fa fa-edit fa-fw"></i> Launch Instance</a>
+                            </li>
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->
@@ -111,7 +112,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">3</div>
-                                        <div>Supported Flavors</div>
+                                        <div>Flavors</div>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +132,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">4</div>
-                                        <div>Images</div>
+                                        <div>Applications</div>
                                     </div>
                                 </div>
                             </div>
@@ -150,8 +151,8 @@
                                         <i class="fa fa-support fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
-                                        <div>TBS</div>
+                                        <div class="huge">2</div>
+                                        <div>Total Instances</div>
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +202,7 @@
                             <div class="panel-heading">
                                 <i class="fa fa-bar-chart-o fa-fw"></i> Instances
                                 <div class="pull-centre">
-                                                                </div>
+                                </div>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -211,29 +212,20 @@
                                             <table class="table table-bordered table-hover table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
+                                                        <th>Project</th>
                                                         <th>Name</th>
-                                                        <th>Location</th>
-                                                        <th>Uptime</th>
-                                                        <th>Memory</th>
+                                                        <th>Application URL</th>
+                                                        <th>IP Address</th>
+                                                        <th>Flavor</th>
+                                                        <th>Status</th>
+                                                        <th>Task</th>
+                                                        <th>PowerState</th>
+                                                        <th>Created Time</th>
+                                                        <th>Updated Time</th>
+                                                        <th>Actions</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Ubuntu</td>
-                                                        <td>127.0.0.:80</td>
-                                                        <td>3:29 PM</td>
-                                                        <td>3072</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Cirros</td>
-                                                        <td>127.0.0.1:80</td>
-                                                        <td>3:20 PM</td>
-                                                        <td>2048</td>
-                                                    </tr>
-
+                                                <tbody id="instancesList">
                                                 </tbody>
                                             </table>
                                         </div>
@@ -275,6 +267,27 @@
         <script src="static/js/morris-data.js"></script>
         <script src="static/js/raphael.min.js"></script>
         <script src="static/js/morris.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $.getJSON('http://localhost:3000/api/v1/openstack/instances', function(response){
+                    console.log(response);
+                    var instance = $('<tr>');
+                    for (var index = 0; index < response.length; index++){
+                        instance.append("<td>" + "admin" + "</td>");
+                        instance.append("<td>" + response[index].Name + "</td>");
+                        instance.append("<td>" + response[index].Image.id + "</td>");
+                        instance.append("<td>" + "IP Address" + "</td>");
+                        instance.append("<td>" + response[index].Flavor.id + "</td>");
+                        instance.append("<td>" + response[index].Status + "</td>");
+                        instance.append("<td>" + "Task" + "</td>");
+                        instance.append("<td>" + "Power state" + "</td>");
+                        instance.append("<td>" + response[index].CreatedAt + "</td>");
+                        instance.append("<td>" + response[index].UpdatedAt + "</td></tr>");
+                        $('#instancesList').append(instance);
+                    }
+                })
+            });
+        </script>
     </body>
 </html>
 

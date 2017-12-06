@@ -12,6 +12,8 @@ func main() {
 	// Get a UserController instance
 	http.HandleFunc("/", controllers.IndexPageHandler)
 	http.HandleFunc("/dashboard", controllers.DashboardPageHandler)
+	http.HandleFunc("/details", controllers.FlavorsApplnPageHandler)
+	http.HandleFunc("/new/instance", controllers.CreateInstancePageHandler)
 	http.HandleFunc("/api/v1/openstack/dashboard", controllers.OpenStackPageHandler)
 	http.HandleFunc("/api/v1/openstack/flavors", controllers.FlavorsHandler)
 	http.HandleFunc("/api/v1/openstack/images", controllers.ImagesHandler)

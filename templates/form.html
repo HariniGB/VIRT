@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>New Instance</title>
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="static/css/sb-admin-2.css" />
+        <!-- MetisMenu CSS -->
+        <link rel="stylesheet" type="text/css" href="static/css/metisMenu.min.css" />
+         <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css" />
+        <!-- Custom Fonts -->
+        <link rel="stylesheet" type="text/css" href="static/css/font-awesome.min.css" />
+    </head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Virtualization</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><form class="nav-logout" method="post" action="/logout">
+                                    <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="/dashboard"><i class="fa fa-home fa-fw"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="/details"><i class="fa fa-table fa-fw"></i> Flavors</a>
+                        </li>
+                        <li>
+                            <a href="/new/instance"><i class="fa fa-edit fa-fw"></i> Launch Instance</a>
+                        </li>
+                        </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Launch Instance</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Create Instance
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label>Instance Name</label>
+                                            <input class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Number Of Instances</label>
+                                            <select class="form-control">
+                                                <option disabled selected value> -- select an option -- </option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Applications</label>
+                                            <select class="form-control">
+                                                <option disabled selected value> -- select an option -- </option>
+                                                <option>MySQL</option>
+                                                <option>Jenkins</option>
+                                                <option>ApacheTomcat</option>
+                                                <option>Nginx</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Flavors</label>
+                                            <select class="form-control">
+                                                <option disabled selected value> -- select an option -- </option>
+                                                <option>Large</option>
+                                                <option>Medium</option>
+                                                <option>Small</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Submit </button>
+                                        <button type="reset" class="btn btn-default">Reset</button>
+                                        <a href="/">
+                                        <input type="button" class="btn btn-default" value="Cancel"/></a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="static/js/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="static/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="static/js/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="static/js/sb-admin-2.js"></script>
+</body>
+
+</html>

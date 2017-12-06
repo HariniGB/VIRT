@@ -232,6 +232,33 @@ func DashboardPageHandler(response http.ResponseWriter, request *http.Request) {
 	Dashboard(response, request)
 }
 
+// flavors and applications page
+func FlavorsAppln(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/flavorsApplications.html")
+	if err != nil {
+		panic(err)
+	}
+	tmpl.Execute(w, "Flavors and Applications page")
+}
+
+func FlavorsApplnPageHandler(response http.ResponseWriter, request *http.Request) {
+	FlavorsAppln(response, request)
+}
+
+// new instance form page
+func CreateInstance(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/form.html")
+	if err != nil {
+		panic(err)
+	}
+	tmpl.Execute(w, "Create new Instance")
+}
+
+func CreateInstancePageHandler(response http.ResponseWriter, request *http.Request) {
+	CreateInstance(response, request)
+}
+
+
 // openstack API page
 func InstancesHandler(response http.ResponseWriter, request *http.Request) {
 	computeList()
