@@ -18,10 +18,11 @@ func main() {
 	http.HandleFunc("/api/v1/openstack/flavors", controllers.FlavorsHandler)
 	http.HandleFunc("/api/v1/openstack/images", controllers.ImagesHandler)
 	http.HandleFunc("/api/v1/openstack/instances", controllers.InstancesHandler)
+	http.HandleFunc("/api/v1/openstack/instance", controllers.CreateInstance	)
 	http.HandleFunc("/login", controllers.LoginHandler)
 	http.HandleFunc("/logout", controllers.LogoutHandler)
 	http.HandleFunc("/instance", controllers.InstanceHandler)
 	// To add all static contents like CSS, JS, IMAGES for the HTML page at any given route (/*filepath)
 	http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("static"))))
-	http.ListenAndServe("localhost:3000", nil)
+	http.ListenAndServe(":3000", nil)
 }
