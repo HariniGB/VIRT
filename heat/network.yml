@@ -1,0 +1,48 @@
+heat_template_version: '2013-05-23'
+parameters:
+  net_name:
+    type: string
+    description: Name of network
+  subnet_name:
+    type: string
+    description: Name of subnet
+  router_name:
+    type: string
+    description: Name of router
+  cidr:
+    type: string
+    description: CIDR for subnet
+
+resources:
+  server_security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      description: Add security group rules for server
+      name: ssh-ping
+      rules:
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: tcp
+          port_range_min: 22
+          port_range_max: 22
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: icmp
+
+  private_net:
+    properties: {name: { get_param: net_name }}
+    type: OS::Neutron::Net
+  private_subnet:
+    properties:
+      name: { get_param: subnet_name }
+      cidr: { get_param: cidr }
+      network_id: {get_resource: private_net}
+    type: OS::Neutron::Subnet
+  router1:
+    properties:
+      name: { get_param: router_name }
+      external_gateway_info: {network: provider}
+    type: OS::Neutron::Router
+  router1_interface:
+    properties:
+      router_id: {get_resource: router1}
+      subnet_id: {get_resource: private_subnet}
+    type: OS::Neutron::RouterInterface
