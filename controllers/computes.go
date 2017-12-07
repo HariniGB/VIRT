@@ -11,7 +11,7 @@ import (
 	"github.com/rackspace/gophercloud/pagination"
 	"os/exec"
 	"log"
-	"k8s.io/apimachinery/pkg/util/json"
+	"encoding/json"
 )
 
 //openstack compute lists of flavors,images and instances

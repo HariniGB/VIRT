@@ -133,7 +133,7 @@
                                         <i class="fa fa-cubes" style="font-size:48px;color:black"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">4</div>
+                                        <div class="huge">3</div>
                                         <div>Applications</div>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@
                                         <i class="fa fa-support fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">2</div>
+                                        <div class="huge" id="instance-value"></div>
                                         <div>Total Instances</div>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                 </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Pie Chart
+                            <i class="fa fa-bar-chart-o fa-fw"></i>Pie Chart
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -212,43 +212,6 @@
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-lg-18">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-bar-chart-o fa-fw"></i> Performance chart
-                                <div class="pull-right">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                            Filters
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li><a href="#">Ubuntu</a>
-                                            </li>
-                                            <li><a href="#">Cirros</a>
-                                            </li>
-                                            <li><a href="#">Linux</a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">Separated link</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div id="morris-area-chart"></div>
-                            </div>
-                            <!-- /.panel-body -->
-                        </div>
-                    <!-- /.col-lg-8 -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                </div>
-                <!-- /.row -->
             </div>
             <!-- /#page-wrapper -->
         </div>
@@ -271,6 +234,7 @@
                 $.getJSON('/api/v1/openstack/instances', function(response){
                     console.log(response);
                     var instance;
+                    document.getElementById("instance-value").value = response.length;
                     for (var index = 0; index < response.length; index++) {
                         instance = $('<tr/>');
                         instance.append("<td>" + "admin" + "</td>");
