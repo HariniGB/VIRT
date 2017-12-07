@@ -144,7 +144,7 @@
     <script src="static/js/sb-admin-2.js"></script>
     <script>
          $(document).ready(function() {
-             $.getJSON("http://localhost:3000/api/v1/openstack/flavors", function (json) {
+             $.getJSON("/api/v1/openstack/flavors", function (json) {
                 console.log(json);
                 var tr;
                 for (var i = 0; i < json.length; i++) {

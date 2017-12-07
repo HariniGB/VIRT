@@ -39,6 +39,11 @@ type (
 		Outputs []StackOutput `json:"outputs"`
 	}
 
+	QuotaEntry struct {
+		Name string `json:"Name"`
+		Value int `json:"Value"`
+	}
+
 	StackOutput struct {
 		Key string `json:"output_key"`
 		Value string `json:"output_value"`
@@ -57,6 +62,15 @@ type (
 		Name string `json:"name"`
 		Flavor string `json:"flavor"`
 		Type string `json:"type"`
+	}
+
+	QuotaResponse struct {
+		CpuUsage      int `json:"cpu_usage"`
+		CpuMax        int `json:"cpu_max"`
+		MemoryUsage   int `json:"memory_usage"`
+		MemoryMax     int `json:"memory_max"`
+		InstanceUsage int `json:"instance_usage"`
+		InstanceMax   int `json:"instance_max"`
 	}
 )
 
@@ -81,5 +95,23 @@ func (s *Stack) ToStackResponse() *StackResponse {
 		}
 	}
 	return resp
+}
 
+func (q *QuotaResponse) FromQuotas(quotas []QuotaEntry) {
+	for _, quota := range quotas {
+		switch quota.Name {
+		case "maxTotalInstances":
+			q.InstanceMax = quota.Value
+		case "totalInstancesUsed":
+			q.InstanceUsage = quota.Value
+		case "maxTotalCores":
+			q.CpuMax = quota.Value
+		case "totalCoresUsed":
+			q.CpuUsage = quota.Value
+		case "maxTotalRAMSize":
+			q.MemoryMax = quota.Value
+		case "totalRAMUsed":
+			q.MemoryUsage = quota.Value
+		}
+	}
 }
