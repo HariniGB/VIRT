@@ -146,10 +146,39 @@ func ImagesHandler(response http.ResponseWriter, request *http.Request) {
 }
 
 func InstanceHandler(response http.ResponseWriter, request *http.Request){
-	fmt.Println(request);
-	//   u.Name = request.FormValue("name")
-	// u.Flavor = request.FormValue("flavor")
-	// u.Type = request.FormValue("type")
+	u := models.ProvisionRequest{}
+	if request.Header.Get("Content-Type") == "application/json" {
+		json.NewDecoder(request.Body).Decode(&u)
+	} else {
+		u.Name = request.FormValue("name")
+		u.Flavor = request.FormValue("flavor")
+		u.Type = request.FormValue("type")
+	}
+
+	params := map[string]string{
+		"name": "admin",
+		"net_name": "admin",
+		"subnet_name": fmt.Sprintf("%s-subnet", "admin"),
+		"flavor_name": u.Flavor,
+	}
+
+	var err error
+	switch u.Type {
+	case "cirros":
+		err = DeployTemplate(u.Name, heat.Cirros, params)
+	case "tomcat":
+		err = DeployTemplate(u.Name, heat.Tomcat, params)
+	default:
+		err = fmt.Errorf("unknown application type")
+	}
+
+	if err != nil {
+		response.WriteHeader(500)
+		fmt.Fprintf(response, "%v", err)
+		return
+	}
+
+	http.Redirect(response, request, "/dashboard", 302)
 }
 
 func OpenStackPageHandler(response http.ResponseWriter, request *http.Request) {
