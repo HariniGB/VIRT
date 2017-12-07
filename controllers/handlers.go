@@ -186,7 +186,7 @@ func OpenStackPageHandler(response http.ResponseWriter, request *http.Request) {
 	inputData := struct {
 		Flavors   []models.FlavorsData
 		Images    []models.ImagesData
-		Instances []models.InstancesData
+		Instances []models.StackResponse
 	}{
 		flavorDataList,
 		imageDataList,

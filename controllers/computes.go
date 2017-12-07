@@ -7,7 +7,6 @@ import (
 	"github.com/rackspace/gophercloud"
 	"github.com/rackspace/gophercloud/openstack"
 	"github.com/rackspace/gophercloud/openstack/compute/v2/flavors"
-	"github.com/rackspace/gophercloud/openstack/compute/v2/servers"
 	"github.com/rackspace/gophercloud/pagination"
 	"os/exec"
 	"log"
@@ -15,7 +14,7 @@ import (
 )
 
 //openstack compute lists of flavors,images and instances
-func computeList() ([]models.FlavorsData, []models.ImagesData, []models.InstancesData){
+func computeList() ([]models.FlavorsData, []models.ImagesData, []models.StackResponse){
 	// Empty the struct array to avoid repetition
 	flavorDataList := []models.FlavorsData{}
 	imageDataList := []models.ImagesData{
@@ -29,7 +28,6 @@ func computeList() ([]models.FlavorsData, []models.ImagesData, []models.Instance
 			Type: "database",
 		},
 	}
-	instanceDataList := []models.InstancesData{}
 
 	//Pass in the values yourself
 	opts := gophercloud.AuthOptions{
@@ -76,34 +74,7 @@ func computeList() ([]models.FlavorsData, []models.ImagesData, []models.Instance
 		return true, err
 	})
 
-	// We have the option of filtering the server list. If we want the full
-	// collection, leave it as an empty struct
-	opts3 := servers.ListOpts{}
-
-	// Retrieve a pager (i.e. a paginated collection)
-	pager2 := servers.List(client, opts3)
-
-	// Define an anonymous function to be executed on each page's iteration
-	pager2.EachPage(func(page pagination.Page) (bool, error) {
-		serverList, err := servers.ExtractServers(page)
-		for _, s := range serverList {
-			instanceDataList = append(instanceDataList,
-				models.InstancesData{
-					s.Name,
-					s.ID,
-					s.UserID,
-					s.Image,
-					s.Flavor,
-					s.HostID,
-					s.Status,
-					s.SecurityGroups,
-					s.Created,
-					s.Updated,
-				})
-		}
-		return true, err
-	})
-
+	instanceDataList := GetStacks()
 	return flavorDataList, imageDataList, instanceDataList
 }
 
