@@ -67,7 +67,7 @@
                             <a href="/details"><i class="fa fa-table fa-fw"></i> Flavors</a>
                         </li>
                         <li>
-                            <a href="/new/instance"><i class="fa fa-edit fa-fw"></i> Launch Instance</a>
+                            <a href="/instances"><i class="fa fa-edit fa-fw"></i> Launch Instance</a>
                         </li>
                         </ul>
                 </div>
@@ -92,39 +92,24 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" action="/instance" method="POST">
                                         <div class="form-group">
                                             <label>Instance Name</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Number Of Instances</label>
-                                            <select class="form-control">
-                                                <option disabled selected value> -- select an option -- </option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
+                                            <input name="name" type="text" placeholder="Instance Name"class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label>Applications</label>
-                                            <select class="form-control">
+                                            <select name="type" class="form-control">
                                                 <option disabled selected value> -- select an option -- </option>
-                                                <option>MySQL</option>
-                                                <option>Jenkins</option>
-                                                <option>ApacheTomcat</option>
-                                                <option>Nginx</option>
+                                                <option value="mysql">MySQL</option>
+                                                <option value="tomcat">Tomcat</option>
+                                                <option value="cirros">Cirros</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Flavors</label>
-                                            <select class="form-control">
+                                            <select name="flavor"class="form-control" id="flavors-name">
                                                 <option disabled selected value> -- select an option -- </option>
-                                                <option>Large</option>
-                                                <option>Medium</option>
-                                                <option>Small</option>
                                             </select>
                                         </div>
                                         <button type="submit" class="btn btn-default">Submit </button>
@@ -148,15 +133,26 @@
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- jQuery -->
     <script src="static/js/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
+    <!--  Bootstrap Core JavaScript -->
     <script src="static/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="static/js/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="static/js/sb-admin-2.js"></script>
+    <script>
+         $(document).ready(function() {
+             $.getJSON("http://localhost:3000/api/v1/openstack/flavors", function (json) {
+                console.log(json);
+                var tr;
+                for (var i = 0; i < json.length; i++) {
+                    $('#flavors-name').append("<option value='m1.tiny'>" + json[i].Name + "</option>");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

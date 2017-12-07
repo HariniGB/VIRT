@@ -75,7 +75,7 @@
                             <a href="/details"><i class="fa fa-table fa-fw"></i>Flavors and Applications</a>
                         </li>
                         <li>
-                            <a href="/new/instances"><i class="fa fa-edit fa-fw"></i> Launch Instance</a>
+                            <a href="/instances"><i class="fa fa-edit fa-fw"></i> Launch Instance</a>
                         </li>
                         </ul>
                 </div>
@@ -87,8 +87,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Applications</h1>
-                </div>
-                <div class="col-lg-12" align="right"> <button type="button">Create</button>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -177,6 +175,7 @@
                 responsive: true
             }); */
          $.getJSON("http://localhost:3000/api/v1/openstack/images", function (json) {
+            console.log(json);
             var tr;
             for (var i = 0; i < json.length; i++) {
                 tr = $('<tr>');
@@ -186,12 +185,13 @@
                 tr.append("<td>" + json[i].Status + "</td>");
                 tr.append("<td>" + json[i].Progress + "</td>");
                 tr.append("<td>" + json[i].MinRAM + "</td>");
-                tr.append("<td>" + json[i].Metadata.description + "</td></tr>");
-                tr.append('<td class="button"><div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Launch<span class="caret"></span></button><ul class="dropdown-menu"> <li><a href="#"><i class="fa fa-plug"></i>  Create Volume</a></li><li><a href="#"><i class="fa fa-eraser"></i>  Edit Image</a></li><li><a href="#"><i class="fa fa-upload"></i>  Update Metadata</a></li><li class="divider"></li><li><a href="#"><i class="fa fa-trash"></i>  Delete</a></li></ul></div></td>');
+                tr.append("<td>" + json[i].Metadata.description + "</td>");
+                tr.append('<td class="button"><div class="dropdown"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Launch<span class="caret"></span></button><ul class="dropdown-menu"> <li><a href="#"><i class="fa fa-plug"></i>  Create Volume</a></li><li><a href="#"><i class="fa fa-eraser"></i>  Edit Image</a></li><li><a href="#"><i class="fa fa-upload"></i>  Update Metadata</a></li><li class="divider"></li><li><a href="#"><i class="fa fa-trash"></i>  Delete</a></li></ul></div></td></tr>');
                 $('#dataTables-example').append(tr);
             }
         });
-       $.getJSON('http://localhost:3000/api/v1/openstack/flavors', function (json) {
+       $.getJSON("http://localhost:3000/api/v1/openstack/flavors", function (json) {
+        console.log(json);
           var tr;
           for (var i = 0; i < json.length; i++) {
               tr = $('<tr/>');

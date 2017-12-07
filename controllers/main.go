@@ -205,6 +205,13 @@ func LogoutHandler(response http.ResponseWriter, request *http.Request) {
 	http.Redirect(response, request, "/", 302)
 }
 
+// InstanceHandler
+func InstanceHandler(response http.ResponseWriter, request *http.Request){
+	fmt.Println(request);
+  //   u.Name = request.FormValue("name")
+		// u.Flavor = request.FormValue("flavor")
+		// u.Type = request.FormValue("type")
+}
 // index page
 func Login(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("templates/login.html")
