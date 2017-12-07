@@ -145,6 +145,13 @@ func ImagesHandler(response http.ResponseWriter, request *http.Request) {
 	fmt.Fprintf(response, "%s", input)
 }
 
+func InstanceHandler(response http.ResponseWriter, request *http.Request){
+	fmt.Println(request);
+	//   u.Name = request.FormValue("name")
+	// u.Flavor = request.FormValue("flavor")
+	// u.Type = request.FormValue("type")
+}
+
 func OpenStackPageHandler(response http.ResponseWriter, request *http.Request) {
 	flavorDataList, imageDataList, instanceDataList := computeList()
 	inputData := struct {
