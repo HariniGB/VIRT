@@ -1,0 +1,63 @@
+heat_template_version: '2013-05-23'
+
+parameters:
+  name:
+    type: string
+    description: Name of VM
+
+  net_name:
+    type: string
+    description: Name of network
+
+  subnet_name:
+    type: string
+    description: Name of subnet
+
+  flavor_name:
+    type: string
+    description: Name of the flavor
+
+resources:
+  server_security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      description: Add security group rules for server
+      name: mysql
+      rules:
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: tcp
+          port_range_min: 3306
+          port_range_max: 3306
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: icmp
+
+  server1_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_param: net_name }
+      security_groups: [ { get_resource: server_security_group }, default, ssh-ping ]
+      fixed_ips:
+        - subnet_id: { get_param: subnet_name }
+
+  server1_floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network_id: provider
+      port_id: { get_resource: server1_port }
+
+  server1:
+    type: OS::Nova::Server
+    properties:
+      name: { get_param: name }
+      image: mysql
+      flavor: { get_param: flavor_name }
+      networks:
+        - port: { get_resource: server1_port }
+
+outputs:
+  server1_private_ip:
+    description: Private IP address of server1
+    value: { get_attr: [ server1, first_address ] }
+  server1_public_ip:
+    description: Floating IP address of server1
+    value: { get_attr: [ server1_floating_ip, floating_ip_address ] }
