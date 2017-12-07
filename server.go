@@ -17,6 +17,7 @@ func main() {
 	http.HandleFunc("/api/v1/openstack/dashboard", controllers.OpenStackPageHandler)
 	http.HandleFunc("/api/v1/openstack/flavors", controllers.FlavorsHandler)
 	http.HandleFunc("/api/v1/openstack/images", controllers.ImagesHandler)
+	http.HandleFunc("/api/v1/openstack/quotas", controllers.HandleQuotas)
 	http.HandleFunc("/api/v1/openstack/instances", controllers.InstancesHandler)
 	http.HandleFunc("/api/v1/openstack/instance", controllers.CreateInstance	)
 	http.HandleFunc("/login", controllers.LoginHandler)

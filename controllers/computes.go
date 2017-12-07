@@ -9,6 +9,9 @@ import (
 	"github.com/rackspace/gophercloud/openstack/compute/v2/flavors"
 	"github.com/rackspace/gophercloud/openstack/compute/v2/servers"
 	"github.com/rackspace/gophercloud/pagination"
+	"os/exec"
+	"log"
+	"k8s.io/apimachinery/pkg/util/json"
 )
 
 //openstack compute lists of flavors,images and instances
@@ -102,4 +105,26 @@ func computeList() ([]models.FlavorsData, []models.ImagesData, []models.Instance
 	})
 
 	return flavorDataList, imageDataList, instanceDataList
+}
+
+func GetQuotas() *models.QuotaResponse {
+	arr := []string {"limits", "show", "--absolute",  "-f", "json"}
+
+	cmd := exec.Command("openstack",  arr...)
+	b, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Print(b)
+		return nil
+	}
+
+	out := []models.QuotaEntry{}
+	err = json.Unmarshal(b, &out)
+	if err != nil {
+		log.Print(err)
+		return nil
+	}
+
+	resp := &models.QuotaResponse{}
+	resp.FromQuotas(out)
+	return resp
 }

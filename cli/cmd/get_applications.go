@@ -33,6 +33,6 @@ func RunGetApplications(cmd *cobra.Command, args []string) error{
 		rows = append(rows, row)
 	}
 
-	newTable(rows)
+	newTable(app_table_headers, rows)
 	return nil
 }

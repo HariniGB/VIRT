@@ -13,5 +13,6 @@ func NewGetCommand() *cobra.Command {
 
 	cmd.AddCommand(NewGetApplicationCommand())
 	cmd.AddCommand(NewGetApplicationsCommand())
+	cmd.AddCommand(NewGetQuotasCommand())
 	return cmd
 }

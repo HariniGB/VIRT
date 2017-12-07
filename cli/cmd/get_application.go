@@ -10,10 +10,10 @@ import (
 )
 
 var (
-	table_headers = []string{"Name", "Status", "Private Ip", "Public Ip", "Creation Time"}
-	newTable = func(data [][]string) *tablewriter.Table {
+	app_table_headers = []string{"Name", "Status", "Private Ip", "Public Ip", "Creation Time"}
+	newTable          = func(headers []string, data [][]string) *tablewriter.Table {
 		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader(table_headers)
+		table.SetHeader(headers)
 		table.AppendBulk(data)
 		table.Render()
 		return table
@@ -45,6 +45,6 @@ func RunGetApplication(cmd *cobra.Command, args []string) error{
 	}
 
 	row := []string{stack.Name, stack.Status, stack.PrivateIp, stack.PublicIp, stack.CreationTime}
-	newTable([][]string{row})
+	newTable(app_table_headers, [][]string{row})
 	return nil
 }

@@ -212,3 +212,38 @@ func CreateInstance(response http.ResponseWriter, request *http.Request) {
 
 	response.WriteHeader(200)
 }
+
+func HandleQuotas(response http.ResponseWriter, request *http.Request) {
+	/*user, pass := getSession(request)
+
+	if user == "" || pass == "" {
+		response.WriteHeader(401)
+		fmt.Fprintf(response, "Unauthenticated")
+		return
+	}
+
+	_, err := KeystoneLogin(user, "", pass)
+	if err != nil {
+		response.WriteHeader(403)
+		fmt.Fprintf(response, "Unauthenticated")
+		return
+	}*/
+
+	quotas := GetQuotas()
+
+	if quotas == nil {
+		response.WriteHeader(500)
+		fmt.Fprintf(response, "Unable to retrive quotas")
+		return
+	}
+
+	bytes, err := json.Marshal(quotas)
+	if err != nil {
+		response.WriteHeader(500)
+		fmt.Fprintf(response, "Unable to marshall quotas")
+		return
+	}
+
+	response.WriteHeader(200)
+	fmt.Fprintf(response, string(bytes))
+}
