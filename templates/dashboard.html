@@ -268,7 +268,7 @@
         <script src="static/js/pie-chart.js"></script>
         <script>
             $(document).ready(function(){
-                $.getJSON('http://localhost:3000/api/v1/openstack/instances', function(response){
+                $.getJSON('/api/v1/openstack/instances', function(response){
                     console.log(response);
                     var instance;
                     for (var index = 0; index < response.length; index++) {
