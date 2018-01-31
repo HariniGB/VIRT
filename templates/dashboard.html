@@ -194,16 +194,11 @@
                     <div class="panel-body">
                         <table width="100%" class="table table-bordered table-hover table-striped" id="instancesList">
                                 <tr>
-                                    <th>Project</th>
                                     <th>Name</th>
-                                    <th>Application URL</th>
-                                    <th>IP Address</th>
-                                    <th>Flavor</th>
                                     <th>Status</th>
-                                    <th>Task</th>
-                                    <th>PowerState</th>
-                                    <th>Created Time</th>
-                                    <th>Updated Time</th>
+                                    <th>Private IP</th>
+                                    <th>Public IP</th>
+                                    <th>Creation Time</th>
                                     <th>Actions</th>
                                 </tr>
                         </table>
@@ -235,16 +230,11 @@
                     var instance;
                     for (var index = 0; index < response.length; index++) {
                         instance = $('<tr/>');
-                        instance.append("<td>" + "admin" + "</td>");
-                        instance.append("<td>" + response[index].Name + "</td>");
-                        instance.append("<td>" + response[index].Image.id + "</td>");
-                        instance.append("<td>" + "IP Address" + "</td>");
-                        instance.append("<td>" + response[index].Flavor.id + "</td>");
-                        instance.append("<td>" + response[index].Status + "</td>");
-                        instance.append("<td>" + "Task" + "</td>");
-                        instance.append("<td>" + "Power state" + "</td>");
-                        instance.append("<td>" + response[index].CreatedAt + "</td>");
-                        instance.append("<td>" + response[index].UpdatedAt + "</td>");
+                        instance.append("<td>" + response[index].name + "</td>");
+                        instance.append("<td>" + response[index].status + "</td>");
+                        instance.append("<td>" + response[index].private_ip + "</td>");
+                        instance.append("<td>" + response[index].public_ip + "</td>");
+                        instance.append("<td>" + response[index].creation_time + "</td>");
                         instance.append("<td class='button'><div class='dropdown'><button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'>Launch<span class='caret'></span></button><ul class='dropdown-menu'> <li><a href='#'><i class='fa fa-plug'></i>  Create Volume</a></li><li><a href='#'><i class='fa fa-eraser'></i>  Edit Image</a></li><li><a href='#'><i class='fa fa-upload'></i>  Update Metadata</a></li><li class='divider'></li><li><a href='#'><i class='fa fa-trash'></i>  Delete</a></li></ul></div></td>");
                         $('#instancesList').append(instance);
                     }
